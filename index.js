@@ -3,20 +3,18 @@ const app = express();
 const port = 5000;
 const mongoose = require("mongoose");
 const { User } = require("./models/User");
+const config = require("./config/key");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
 
 mongoose
-  .connect(
-    "mongodb+srv://yoonjh517:Zpfhfh12@cluster0.warjd.mongodb.net/Cluster0?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  )
+  .connect(config.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   .then(() => {
     console.log("Mongodb connected");
   })
