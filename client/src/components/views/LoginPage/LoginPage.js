@@ -1,9 +1,11 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../../_actions/user_action";
 
-function LoginPage() {
+function LoginPage(props) {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const onEmailHandler = (e) => {
     setEmail(e.currentTarget.value);
@@ -15,6 +17,19 @@ function LoginPage() {
 
   const onSubmitHandler = (e) => {
     e.preventDefault(); // to prevent reload page
+
+    let body = {
+      email: Email,
+      password: Password,
+    };
+
+    dispatch(loginUser(body)).then((response) => {
+      if (response.payload.loginSuccess) {
+        props.history.push("/");
+      } else {
+        alert("error");
+      }
+    });
   };
 
   return (
