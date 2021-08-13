@@ -27,6 +27,11 @@ mongoose
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
+// proxy test
+app.get("/api/hello", (req, res) => {
+  res.send("Hello, react proxy setting is fine");
+});
+
 app.post("/api/users/register", (req, res) => {
   // if client send a post with information for sign up
   // put data into db
